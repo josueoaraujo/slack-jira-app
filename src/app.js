@@ -1,7 +1,8 @@
-const { App } = require('@slack/bolt');
-const JiraApi = require('jira-client');
+import SlackBolt from '@slack/bolt';
+import JiraApi from 'jira-client';
+import 'dotenv/config';
 
-require('dotenv').config();
+const { App } = SlackBolt;
 
 const jiraApi = new JiraApi({
   protocol: 'https',

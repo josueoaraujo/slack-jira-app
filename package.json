@@ -2,6 +2,7 @@
   "name": "bolt-js-getting-started-app",
   "version": "2.0.0",
   "description": "Getting Started ⚡️ Bolt for JavaScript",
+  "type": "module",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/app.js",
