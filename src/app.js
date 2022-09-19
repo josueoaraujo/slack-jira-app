@@ -70,9 +70,10 @@ const issueSlackBlock = (issue) => ({
   ]
 });
 
-const buildIssueUrl = (issueId) => {
-  return `${process.env.JIRA_HOST}/browse/${issueId}`;
+const buildIssueUrl = (issueKey) => {
+  return `${process.env.JIRA_HOST}/browse/${issueKey}`;
 }
+
 // Listens to incoming messages that contain Jira Issue Regex Pattern
 app.message(/([A-Z][A-Z0-9]+-[0-9]+)/g, async ({message, say, context, client}) => {
   try {
