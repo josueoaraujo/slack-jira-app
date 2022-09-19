@@ -20,19 +20,19 @@ const app = new App({
   appToken: process.env.SLACK_APP_TOKEN,
 });
 
-const findIssue = async (issueId) => {
+const findIssue = async (issueKey) => {
   try{
-  const issue = await jiraApi.findIssue(issueId);
+  const issue = await jiraApi.findIssue(issueKey);
   return {
-    key: issueId,
+    key: issueKey,
     summary: issue.fields.summary,
     status: issue.fields.status.name,
     priority: issue.fields.priority.name,
     zendeskTicketCount: issue.fields.customfield_13557 ?? 'No data',
-    url: buildIssueUrl(issueId)
+    url: buildIssueUrl(issueKey)
   };
   } catch (err) {
-    console.error(`(${issueId}) ${err}`);
+    console.error(`(${issueKey}) ${err}`);
   }
 }
 
@@ -160,8 +160,8 @@ app.action('button_no', async ({ ack, respond }) => {
 });
 
 (async () => {
-  // Start your app
+  // Start the app
   await app.start(process.env.PORT || 3000);
 
-  console.log('⚡️ Bolt app is running!');
+  console.log('⚡️ Jirabot is running!');
 })();
