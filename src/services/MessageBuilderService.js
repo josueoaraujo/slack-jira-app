@@ -1,5 +1,5 @@
 export const issueSlackBlock = (issue) => ({
-    "text": `Issue ${issue.key}`,
+    "text": `Issue ${issue.key}!`,
     "attachments": [
       {
         "blocks": [
