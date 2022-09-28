@@ -2,13 +2,20 @@
   "name": "bolt-js-getting-started-app",
   "version": "2.0.0",
   "description": "Getting Started ⚡️ Bolt for JavaScript",
-  "main": "app.js",
+  "type": "module",
+  "main": "src/app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node src/app.js",
+    "watch": "nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "MIT",
   "dependencies": {
-    "@slack/bolt": "^3.6.0"
+    "@slack/bolt": "^3.6.0",
+    "dotenv": "^16.0.1",
+    "jira-client": "^8.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }
