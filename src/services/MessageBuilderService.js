@@ -32,10 +32,11 @@ export const issueSlackBlock = (issue) => ({
     ]
   });
 
-  export const multipleIssuesMessage = (channel, user, issues) => (
+  export const multipleIssuesMessage = (channel, user, issues, thread_ts) => (
     {
         channel,
         user,
+        thread_ts,
         blocks: [
           {
             type: "section",
@@ -54,7 +55,10 @@ export const issueSlackBlock = (issue) => ({
                   text: "Yes",
                 },
                 style: "primary",
-                value: issues.join(","),
+                value: JSON.stringify({
+                  issues: issues,
+                  thread_ts
+                }),
                 action_id: "button_yes",
               },
               {
