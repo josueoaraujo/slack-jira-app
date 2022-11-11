@@ -21,12 +21,12 @@ export default class Bot {
       async ({ message, say, context, client }) => {
         try {
           if (context.matches.length >= 3) {
-            client.chat.postEphemeral(multipleIssuesMessage(message.channel, message.user, context.matches));
+            client.chat.postEphemeral(multipleIssuesMessage(message.channel, message.user, context.matches)); 
           } else {
             context.matches.forEach(async (key) => {
               const issue = await this.jiraService.findIssue(key);
               if (issue) {
-                await say(issueSlackBlock(issue));
+                await say({...issueSlackBlock(issue), thread_ts: message.thread_ts });
               }
             });
           }
