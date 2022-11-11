@@ -22,12 +22,12 @@ export default class Bot {
         try {
           const uniqueMatches = [...new Set(context.matches)];
           if (uniqueMatches.length >= 3) {
-            client.chat.postEphemeral(multipleIssuesMessage(message.channel, message.user, uniqueMatches));
+            client.chat.postEphemeral(multipleIssuesMessage(message.channel, message.user, uniqueMatches, message.thread_ts));
           } else {
             uniqueMatches.forEach(async (key) => {
               const issue = await this.jiraService.findIssue(key);
               if (issue) {
-                await say(issueSlackBlock(issue));
+                await say({...issueSlackBlock(issue), thread_ts: message.thread_ts });
               }
             });
           }
@@ -47,14 +47,19 @@ export default class Bot {
         delete_original: true,
       });
 
+      const actionData = JSON.parse(action.value);
+      
       // Extract issue keys from button value
-      const issueKeys = action.value.split(",");
+      const issueKeys = actionData.issues;
+      
+      // If the action came from a thread, this property will exist
+      const thread_ts = actionData.thread_ts;
 
       // Find each issue and display its information
       issueKeys.forEach(async (key) => {
         const issue = await this.jiraService.findIssue(key);
         if (issue) {
-          await say(issueSlackBlock(issue));
+          await say({...issueSlackBlock(issue), thread_ts});
         }
       });
     });
