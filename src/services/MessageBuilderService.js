@@ -7,7 +7,7 @@ export const issueSlackBlock = (issue) => ({
             "type": "section",
             "text": {
               "type": "mrkdwn",
-              "text": `*<${issue.url}|${issue.summary}>*`
+              "text": `*<https://${issue.url}|${issue.summary}>*`
             }
           },
           {
