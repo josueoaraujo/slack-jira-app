@@ -20,10 +20,11 @@ export default class Bot {
       /([A-Z][A-Z0-9]+-[0-9]+)/g,
       async ({ message, say, context, client }) => {
         try {
-          if (context.matches.length >= 3) {
-            client.chat.postEphemeral(multipleIssuesMessage(message.channel, message.user, context.matches));
+          const uniqueMatches = [...new Set(context.matches)];
+          if (uniqueMatches.length >= 3) {
+            client.chat.postEphemeral(multipleIssuesMessage(message.channel, message.user, uniqueMatches));
           } else {
-            context.matches.forEach(async (key) => {
+            uniqueMatches.forEach(async (key) => {
               const issue = await this.jiraService.findIssue(key);
               if (issue) {
                 await say(issueSlackBlock(issue));
